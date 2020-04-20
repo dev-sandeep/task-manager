@@ -1,0 +1,100 @@
+button {
+    border: 0px;
+    cursor: pointer;
+    background: none;
+}
+
+body {
+    height: 400px;
+    width: 400px;
+    overflow-y: hidden;
+    margin: 0px;
+}
+
+.header span {
+    color: #fff;
+    font-weight: 500;
+}
+
+.header {
+    width: 100%;
+    background: #2196F3;
+    padding-left: 3px;
+    padding: 3px;
+}
+
+.body {
+    padding: 2px;
+}
+
+.m-top-5 {
+    margin-top: 5px;
+}
+
+select {
+    width: 100%;
+    padding: 3px;
+}
+
+table {
+    width: 100%;
+}
+
+.time {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.todo-input {
+    margin-left: 1px;
+    height: 20px;
+    width: 88%;
+}
+
+.save {
+    background: #2196F3;
+    color: #fff;
+    zoom: 1.5;
+}
+
+.done-td:hover {
+    background: #CDDC39;
+    color: #fff;
+    cursor: pointer;
+}
+
+.done {
+    background: none;
+    /* color: #fff; */
+
+}
+
+.center {
+    text-align: center
+}
+
+.list-text {
+    font-size: 1.3em;
+}
+
+.finished {
+    text-decoration: line-through;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.dialog-footer {
+    position: absolute;
+    bottom: 0px;
+    right: 10px;
+}
+
+.cancel-btn{
+    
+}

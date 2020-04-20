@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="../styles/jquery-ui.min.css">
+    <link rel="stylesheet" href="../styles/styles.css">
+    <style>
+        
+    </style>
+</head>
+
+<body>
+    <div class="popup">
+        <div class="header">
+            <span>Todo List</span>
+        </div>
+        <div class="body">
+            <div class="time-block-form m-top-5">
+                <input type="text" class="todo-input" />
+                <button class="save">&#10004;</button>
+            </div>
+            <div class="list m-top-5">
+                <div class="time-block">
+                    <table class="tbl">
+                        <tr class="single-col">
+                            <td width="80%" class="list-text">Take grocery ASAP</td>
+                            <td class="" width="10%">
+                                <span class="days">01 Day</span>
+                                <span class="time">09:32:10</td>
+                            <td class="center done-td" width="10%"> <button class="done">&#10004;</button></td>
+                        </tr>
+                        <tr class="single-col">
+                            <td width="80%" class="list-text">Take grocery ASAP</td>
+                            <td class="" width="10%">
+                                <span class="days">01 Day</span>
+                                <span class="time">09:32:10</td>
+                            <td class="center done-td" width="10%"> <button class="done">&#10004;</button></td>
+                        </tr>
+                        <tr class="single-col finished">
+                            <td width="80%" class="list-text">Take grocery ASAP</td>
+                            <td class="" width="10%">
+                                <span class="days">01 Day</span>
+                                <span class="time">09:32:10</td>
+                            <td class="center done-td" width="10%"> <button class="done">&#10005;</button></td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="footer"></div>
+
+        <div id="dialog" title="Choose Deadline">
+            <div class="dialog-body">
+                <input type="datetime-local" class="w-100" />
+            </div>
+            <div class="dialog-footer">
+                <button class="dialog-save save">Save</button>
+                <button class="dialog-save cancel-btn">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+    <script src="../scripts/jquery.js"></script>
+    <script src="../scripts/jquery-ui.min.js"></script>
+    <script src="../scripts/popup.js"></script>
+</body>
+
+</html>
