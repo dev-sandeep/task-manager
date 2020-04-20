@@ -7,7 +7,7 @@ var onKeyupHandler = () => {
 }
 
 var onSavePress = () => {
-
+  console.log("lets save");
 }
 
 var onMarkDonePress = () => {
@@ -18,13 +18,69 @@ var onRemovePress = () => {
 
 }
 
-var init = () => {
-  $("#dialog").dialog();
+var defaultDateTime = () => {
+  var dateTime = getDateTime();
+  console.log(dateTime);
+  $("#date-time").val(dateTime);
 }
 
-$(document).ready(function(){
+var errorDialog = (message) => {
+  $("#error-message").text(message);
+  $("#dialog-error").dialog({
+    modal: true,
+    buttons: {
+      Close: function () {
+        $(this).dialog("close");
+      }
+    }
+  }
+  );
+}
+
+var openDialog = () => {
+  var taskVal = $("#task-input").val();
+  if (!taskVal) {
+    errorDialog("Task can not be empty");
+    return;
+  }
+
+  $("#dialog").dialog({
+    modal: true,
+    buttons: {
+      Save: function () {
+        onSavePress();
+        $(this).dialog("close");
+      }
+    }
+  }
+  );
+  defaultDateTime();
+}
+
+var addSaveBtnListner = () => {
+  $("#save-task").click(() => {
+    var task = $("#task-input").val();
+    console.log(task);
+    openDialog();
+  });
+}
+
+var enterPressListner = () => {
+  $("#task-input").keypress(function (e) {
+    if (e.which == 13) {
+      openDialog();
+    }
+  });
+}
+
+var init = () => {
+  addSaveBtnListner();
+  enterPressListner();
+}
+
+
+$(document).ready(function () {
   init();
-  $("#dialog").dialog();
 });
 
 
@@ -53,6 +109,13 @@ var clearAllSetInterval = () => {
 var deleteItem = () => {
 
 }
+
+///////////////////////////
+var getDateTime = () => {
+  return moment().format('YYYY-MM-DDTHH:mm');
+}
+
+
 
 // var timeIntervalArr = [];
 

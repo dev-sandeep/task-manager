@@ -58,7 +58,10 @@ tr:nth-child(odd) {
 .save {
     background: #2196F3;
     color: #fff;
-    zoom: 1.5;
+    height: 26px;
+    position: relative;
+    top: 1px;
+    width: 37px
 }
 
 .done-td:hover {

@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="../styles/jquery-ui.min.css">
     <link rel="stylesheet" href="../styles/styles.css">
     <style>
-        
+
     </style>
 </head>
 
@@ -16,8 +16,8 @@
         </div>
         <div class="body">
             <div class="time-block-form m-top-5">
-                <input type="text" class="todo-input" />
-                <button class="save">&#10004;</button>
+                <input type="text" id="task-input" class="todo-input" />
+                <button class="save" id="save-task">&#10004;</button>
             </div>
             <div class="list m-top-5">
                 <div class="time-block">
@@ -51,13 +51,17 @@
         </div>
         <div class="footer"></div>
 
-        <div id="dialog" title="Choose Deadline">
+        <div id="dialog" style="display: none;" title="Choose Deadline">
             <div class="dialog-body">
-                <input type="datetime-local" class="w-100" />
+                <input type="datetime-local" id="date-time" class="w-100" />
             </div>
-            <div class="dialog-footer">
-                <button class="dialog-save save">Save</button>
-                <button class="dialog-save cancel-btn">Cancel</button>
+        </div>
+
+        <div id="dialog-error" style="display: none;" title="Error Occurred">
+            <div class="dialog-body">
+                <div class="error" id="error-message">
+                    Error Occurred
+                </div>
             </div>
         </div>
 
@@ -65,6 +69,7 @@
     <script src="../scripts/jquery.js"></script>
     <script src="../scripts/jquery-ui.min.js"></script>
     <script src="../scripts/popup.js"></script>
+    <script src="../lib/moment.js"></script>
 </body>
 
 </html>
