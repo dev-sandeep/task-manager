@@ -12,37 +12,27 @@
 <body>
     <div class="popup">
         <div class="header">
-            <span>Todo List</span>
+            <span>TASK ON</span>
         </div>
         <div class="body">
-            <div class="time-block-form m-top-5">
+            <!-- <div class="time-block-form m-top-5">
                 <input type="text" id="task-input" class="todo-input" />
                 <button class="save" id="save-task">&#10004;</button>
+            </div> -->
+
+            <div class="input-group time-block-form m-top-5">
+                <input type="text" id="task-input" class="form-control" placeholder="Your task">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" id="save-task" type="submit">
+                        &#10004;
+                    </button>
+                </div>
             </div>
+
             <div class="list m-top-5">
                 <div class="time-block">
-                    <table class="tbl">
-                        <tr class="single-col">
-                            <td width="80%" class="list-text">Take grocery ASAP</td>
-                            <td class="" width="10%">
-                                <span class="days">01 Day</span>
-                                <span class="time">09:32:10</td>
-                            <td class="center done-td" width="10%"> <button class="done">&#10004;</button></td>
-                        </tr>
-                        <tr class="single-col">
-                            <td width="80%" class="list-text">Take grocery ASAP</td>
-                            <td class="" width="10%">
-                                <span class="days">01 Day</span>
-                                <span class="time">09:32:10</td>
-                            <td class="center done-td" width="10%"> <button class="done">&#10004;</button></td>
-                        </tr>
-                        <tr class="single-col finished">
-                            <td width="80%" class="list-text">Take grocery ASAP</td>
-                            <td class="" width="10%">
-                                <span class="days">01 Day</span>
-                                <span class="time">09:32:10</td>
-                            <td class="center done-td" width="10%"> <button class="done">&#10005;</button></td>
-                        </tr>
+                    <table class="tbl" id="main-table">
+
                     </table>
 
                 </div>
@@ -57,10 +47,10 @@
             </div>
         </div>
 
-        <div id="dialog-error" style="display: none;" title="Error Occurred">
+        <div id="dialog-error" style="display: none;" title="Message">
             <div class="dialog-body">
                 <div class="error" id="error-message">
-                    Error Occurred
+                    Meessage
                 </div>
             </div>
         </div>

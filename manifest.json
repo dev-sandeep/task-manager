@@ -1,6 +1,6 @@
 {
-    "name": "Smart todo",
-    "version": "1.2",
+    "name": "Task On",
+    "version": "1.6",
     "description": "Extension for managing your tasks efficiently",
     "manifest_version": 2,
     "background": {
@@ -10,7 +10,8 @@
         "persistent": false
     },
     "permissions": [
-        "storage"
+        "storage",
+        "alarms"
     ],
     "browser_action": {
         "default_popup": "html/popup.html"
