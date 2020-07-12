@@ -11,7 +11,7 @@ var onSavePress = () => {
   }
 
   let minutes = moment(dateTime).diff(moment(), "minutes");
-
+  console.log(dateTime);
   //get all the values
   let taskObj = {
     name: $("#task-input").val(),
@@ -46,6 +46,14 @@ var onMarkDonePressListner = () => {
     });
   });
 
+  $("#date-time").on('change', function(){
+    var dateTime = $(this).val();
+    let elapsedMinutes = moment(dateTime).diff(moment(), "minutes");
+    if(elapsedMinutes < 0){
+      $(this).val(moment().format('DD/MM/YYYY, hh:mm a'));
+    }
+  });
+
   $('.refresh-td').click(function () {
     var btnId = $(this).attr("btn-id");
     chrome.storage.sync.get(["task_data"], function (result) {
@@ -64,6 +72,88 @@ var onMarkDonePressListner = () => {
       }
     });
   });
+
+  $('#action-all').click(function(){
+      //filter the results to get all the result
+      refreshList();
+
+      setActive('all');
+  });
+
+  $('#action-today').click(function(){
+    chrome.storage.sync.get(["task_data"], function (result) {
+      //filter the results to get all the result
+      var task = result["task_data"];
+      task = dataOnAction('today', task)
+      loadList(task, true);
+      onMarkDonePressListner();
+      onRemovePressListner();
+
+      setActive('today');
+    });
+  });
+
+  // $('#action-missed').click(function(){
+  //   chrome.storage.sync.get(["task_data"], function (result) {
+  //     //filter the results to get all the result
+  //     var task = result["task_data"];
+  //     task = dataOnAction('missed', task)
+  //     console.log(task);
+  //     loadList(task, true);
+  //     onMarkDonePressListner();
+  //     onRemovePressListner();
+
+  //     setActive('missed');
+  //   });
+  // });
+
+  $('#action-upcoming').click(function(){
+    chrome.storage.sync.get(["task_data"], function (result) {
+      //filter the results to get all the result
+      var task = result["task_data"];
+      task = dataOnAction('upcoming', task)
+      loadList(task, true);
+      onMarkDonePressListner();
+      onRemovePressListner();
+
+      setActive('upcoming');
+    });
+  });
+
+  $('#action-done').click(function(){
+    chrome.storage.sync.get(["task_data"], function (result) {
+      //filter the results to get all the result
+      var task = result["task_data"];
+      task = dataOnAction('done', task)
+      loadList(task, true);
+      onMarkDonePressListner();
+      onRemovePressListner();
+
+      setActive('done');
+    });
+  });
+}
+
+const dataOnAction = (id, data)=>{
+  switch(id){
+    case "all":{
+      return data;
+    }case "today":{
+      return data.filter((obj) => diffFormat(obj.minutes).days < 1 && !obj.isDone );
+    }case "upcoming":{
+      return data.filter((obj) => diffFormat(obj.minutes).days > 0 && !obj.isDone);
+    }case "done":{
+      return data.filter((obj) => obj.isDone);
+    }case "missed":{
+      return data.filter((obj) => obj.minutes < 0 && !obj.isDone);
+    }
+  }
+}
+
+const setActive = (id)=>{
+  $('.action').removeClass('active');
+  $('#action-'+id).addClass('active');
+  chrome.storage.sync.set({ action_selected: id });
 }
 
 var onRemovePressListner = () => {
@@ -133,7 +223,6 @@ var openDialog = () => {
 
 var addSaveBtnListner = () => {
   $("#save-task").click(() => {
-    var task = $("#task-input").val();
     openDialog();
   });
 }
@@ -260,14 +349,20 @@ var refreshList = () => {
       task = result["task_data"];
     }
 
-    loadList(task);
-    onMarkDonePressListner();
-    onRemovePressListner();
+    chrome.storage.sync.get(['action_selected'], function(data){
+      let selected = data['action_selected'];
+      setActive(selected);
+
+      task = dataOnAction(selected, task)      
+      loadList(task, false, selected);
+      onMarkDonePressListner();
+      onRemovePressListner();
+    });
   });
 }
 
-var loadList = (data) => {
-  if (!data || data.length == 0) {
+var loadList = (data, isInternalReq, type) => {
+  if ((!data || data.length == 0) && !isInternalReq) {
     errorDialog("<h3> Hello, Create your first task and let the magic begin!</h3>");
     return;
   }
@@ -281,11 +376,10 @@ var loadList = (data) => {
     return a.minutes - b.minutes
   });
 
-  loadHTMLList(data);
+  loadHTMLList(data, isInternalReq);
 }
 
-var loadHTMLList = (data) => {
-
+var loadHTMLList = (data, isInternalReq) => {
   //clear existing list
   $("#main-table").html("");
   var positiveMin = '';
@@ -294,13 +388,15 @@ var loadHTMLList = (data) => {
   var time;
   for (var key in data) {
     time = diffFormat(data[key]['minutes']);
+    originalTime = moment(data[key]['dateTime']).format('MMMM Do, h:mm a');
+    
     if (data[key]['minutes'] > 0 && !data[key]['isDone']) {
       positiveMin += `
         <tr class="single-col">
           <td width="70%" class="list-text ${time.days == 0 ? 'task-color-today' : 'task-color-other'}">${data[key]['name']}</td>
           <td class="" width="13%">
           <div class="tooltip">
-            <a href="#" title="${twoDigit(time.days)} Day(s) ${twoDigit(time.hours)} hours ${twoDigit(time.minutes)} minutes to the task deadline">
+            <a href="#" title="Task to be competed before ${originalTime} ######## ${twoDigit(time.days)} Day(s) ${twoDigit(time.hours)} hours ${twoDigit(time.minutes)} minutes to Go!">
             <span class="days">${twoDigit(time.days)} Day(s)</span>
               <span class="time">${twoDigit(time.hours)}:${twoDigit(time.minutes)}
             </td>

@@ -15,11 +15,6 @@
             <span>TASK ON</span>
         </div>
         <div class="body">
-            <!-- <div class="time-block-form m-top-5">
-                <input type="text" id="task-input" class="todo-input" />
-                <button class="save" id="save-task">&#10004;</button>
-            </div> -->
-
             <div class="input-group time-block-form m-top-5">
                 <input type="text" id="task-input" class="form-control" placeholder="Your task">
                 <div class="input-group-btn">
@@ -27,6 +22,15 @@
                         <img src="../images/icons/check-1.svg" />
                     </button>
                 </div>
+            </div>
+
+            <div class="action-item">
+                <span class="action" id="action-all">All</span> |
+                <!-- <span class="action" id="action-missed">Missed</span> | -->
+                <span class="action" id="action-today">Today</span> |
+                <span class="action" id="action-upcoming">Upcoming</span> |
+                <span class="action" id="action-done">Done</span>
+
             </div>
 
             <div class="list m-top-5">
@@ -46,11 +50,6 @@
                 <form id="deadline-form">
                     <small>Deadline of task</small>
                     <input type="datetime-local" id="date-time" class="w-100 m-b-10" />
-
-                    <!-- <br />
-                    <small>Duration of task in minutes</small>
-                    <br />
-                    <input type="number" id="duration" value="30" class="w-100" /> -->
                 </form>
 
             </div>

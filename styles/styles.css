@@ -278,3 +278,23 @@ a:link {
   tr{
       height:42px;
   }
+
+  .action-item .active{
+    font-weight: bold;
+  } 
+
+  .action-item span:hover{
+      cursor: pointer;
+      font-weight: bold;
+  }
+
+  table{
+    max-height: 400px;
+    overflow-y: scroll;
+  }
+
+  .action-item{
+    margin-top: 1%;
+    background: #fff;
+    padding: 1%;
+  }

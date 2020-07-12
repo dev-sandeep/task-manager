@@ -1,6 +1,6 @@
 {
     "name": "Task On",
-    "version": "1.6",
+    "version": "1.9",
     "description": "Extension for managing your tasks efficiently",
     "manifest_version": 2,
     "background": {
