@@ -45,6 +45,25 @@ var onMarkDonePressListner = () => {
       });
     });
   });
+
+  $('.refresh-td').click(function () {
+    var btnId = $(this).attr("btn-id");
+    chrome.storage.sync.get(["task_data"], function (result) {
+      var task = result["task_data"], name;
+
+      for (var key in task) {
+        if (task[key]['id'] == btnId) {
+          name = task[key]['name'];
+          //remove from list
+          task = task.filter((obj) => obj.id != btnId);
+          chrome.storage.sync.set({ task_data: task }, function () {
+          });
+          $("#task-input").val(name)
+          openDialog();
+        }
+      }
+    });
+  });
 }
 
 var onRemovePressListner = () => {
@@ -94,7 +113,7 @@ var openDialog = () => {
     return;
   }
 
-  $("#dialog").dialog({
+  var dialog = $("#dialog").dialog({
     modal: true,
     buttons: {
       Save: function () {
@@ -103,6 +122,12 @@ var openDialog = () => {
       }
     }
   });
+
+  $("#deadline-form").on("submit", function () {
+    onSavePress();
+    dialog.dialog("close");
+  })
+
   defaultDateTime();
 }
 
@@ -243,7 +268,7 @@ var refreshList = () => {
 
 var loadList = (data) => {
   if (!data || data.length == 0) {
-    errorDialog("<h3> Namaste, Create your first task and let the magic begin!</h3>");
+    errorDialog("<h3> Hello, Create your first task and let the magic begin!</h3>");
     return;
   }
 
@@ -279,7 +304,11 @@ var loadHTMLList = (data) => {
             <span class="days">${twoDigit(time.days)} Day(s)</span>
               <span class="time">${twoDigit(time.hours)}:${twoDigit(time.minutes)}
             </td>
-            <td class="center done-td" width="10%" btn-id="${data[key]['id']}"> <button class="done">&#10004;</button></td>
+            <td class="center done-td" width="5%" btn-id="${data[key]['id']}"> 
+            <button class="done">
+            <img src="../images/icons/check-1.svg" />
+            </button>
+            </td>
             </div>
         </tr>
       `;
@@ -288,24 +317,29 @@ var loadHTMLList = (data) => {
         missedDeadline += `
         <tr class="single-col">
         <td width="70%" class="list-text ${data[key]['isDone'] ? 'task-color-done' : 'task-color-times-up'}">${data[key]['name']}</td>
-        <td class="" width="13%">
+        <td class="center refresh-td" width="13%" btn-id="${data[key]['id']}"> 
+          <button class="refresh">
           <a href="#" title="Alas! The deadline is already missed">
-            <span class="days">00 Day</span>
-            <span class="time">00:00</td>
+            <img src="../images/icons/refresh.svg" />
           </a>
-        <td class="center ${data[key]['isDone'] ? 'delete-td' : 'done-td'}" width="10%" btn-id="${data[key]['id']}"> <button class="done">${data[key]['isDone'] ? '&#10005;' : '&#10004;'}</button></td>
+          </button>
+        </td>
+      
+        <td class="center ${data[key]['isDone'] ? 'delete-td' : 'done-td'}" width="10%" btn-id="${data[key]['id']}"> <button class="done">${data[key]['isDone'] ? '<img src="../images/icons/cross.svg" />' : '  <img src="../images/icons/check-1.svg" />'}</button></td>
     </tr>
         `;
       } else {
         negativeMin += `
       <tr class="single-col ${data[key]['isDone'] ? 'finished' : ''}">
           <td width="70%" class="list-text ${data[key]['isDone'] ? 'task-color-done' : 'task-color-times-up'}">${data[key]['name']}</td>
-          <td class="" width="13%">
-            <a href="#" title="Alas! The deadline is already missed">
-              <span class="days">00 Day</span>
-              <span class="time">00:00</td>
-            </a>
-          <td class="center ${data[key]['isDone'] ? 'delete-td' : 'done-td'}" width="10%" btn-id="${data[key]['id']}"> <button class="done">${data[key]['isDone'] ? '&#10005;' : '&#10004;'}</button></td>
+          <td class="center refresh-td" width="13%" btn-id="${data[key]['id']}"> 
+            <button class="refresh">
+              <a href="#" title="Alas! The deadline is already missed">
+                <img src="../images/icons/refresh.svg" />
+              </a>
+            </button>
+        </td>
+          <td class="center ${data[key]['isDone'] ? 'delete-td' : 'done-td'}" width="10%" btn-id="${data[key]['id']}"> <button class="done">${data[key]['isDone'] ? '<img src="../images/icons/cross.svg" />' : '  <img src="../images/icons/check-1.svg" />'}</button></td>
       </tr>
     `;
       }

@@ -24,7 +24,7 @@
                 <input type="text" id="task-input" class="form-control" placeholder="Your task">
                 <div class="input-group-btn">
                     <button class="btn btn-default" id="save-task" type="submit">
-                        &#10004;
+                        <img src="../images/icons/check-1.svg" />
                     </button>
                 </div>
             </div>
@@ -43,7 +43,16 @@
 
         <div id="dialog" style="display: none;" title="Choose Deadline">
             <div class="dialog-body">
-                <input type="datetime-local" id="date-time" class="w-100" />
+                <form id="deadline-form">
+                    <small>Deadline of task</small>
+                    <input type="datetime-local" id="date-time" class="w-100 m-b-10" />
+
+                    <!-- <br />
+                    <small>Duration of task in minutes</small>
+                    <br />
+                    <input type="number" id="duration" value="30" class="w-100" /> -->
+                </form>
+
             </div>
         </div>
 

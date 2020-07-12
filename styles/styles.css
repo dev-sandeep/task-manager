@@ -76,7 +76,7 @@ tr:nth-child(odd) {
 }
 
 .done-td:hover {
-    background: #CDDC39;
+    background: #FFEB3B;
     color: #fff;
     cursor: pointer;
 }
@@ -103,10 +103,29 @@ tr:nth-child(odd) {
     width: 100%;
 }
 
+.m-b-10 {
+    margin-bottom: 10px;
+}
+
+.ui-button{
+    position: relative;
+    right: -10px;
+}
+
 .dialog-footer {
     position: absolute;
     bottom: 0px;
     right: 10px;
+}
+
+.dialog-buttonset{
+    /* position: relative;
+    top: 14px; */
+}
+
+.ui-dialog-titlebar{
+    background: #3F51B5;
+    color: #fff;
 }
 
 body{
@@ -234,10 +253,28 @@ a:link {
 
 .btn-default {
     color: #fff;
-    background-color: #03A9F4;
+    background-color: #fff;
     border-color: #ccc;
+}
+
+#save-task img{
+    width: 15px;
+    height: 15px;
+    position: relative;
+    top: 3px;
 }
 
 a:link {
     text-decoration: none;
+  }
+
+  .done img, .refresh img{
+    width: 15px;
+    height: 15px;
+    position: relative;
+    top: 3px;
+  }
+
+  tr{
+      height:42px;
   }
